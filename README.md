@@ -61,19 +61,28 @@ O sistema foi desenvolvido com as seguintes tecnologias:
 ## 📦 Instalação
 ### ⚙️ Pré-requisitos
 - 🐳 Docker
+- 🛠️ Node.js e npm 
 
 ```s̀h
-# Clonar o repositório 
+# Clonar o repositório (caso ainda não tenha sido clonado)
 git clone https://github.com/eu-micaeu/OF2-ELLP.git
 
 # Navegar até o diretório do projeto
 cd OF2-ELLP
 
-# Construir a imagem Docker
-docker build -t ellp-app .
+# Instalar as dependências do Backend
+cd backend
+npm install
+cd .. # Voltar para a pasta raiz do projeto
 
-# Rodar o container Docker
-docker run -p 3000:3000 ellp-app
+# Instalar as dependências do Frontend
+cd frontend
+npm install
+cd .. # Voltar para a pasta raiz do projeto
+
+# Construir as imagens Docker e iniciar os containers
+docker-compose up --build -d
+
 ```
 
 ## 🌐 Acesso ao aplicativo
