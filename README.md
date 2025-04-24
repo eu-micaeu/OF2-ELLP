@@ -70,8 +70,18 @@ git clone https://github.com/eu-micaeu/OF2-ELLP.git
 # Navegar até o diretório do projeto
 cd OF2-ELLP
 
+# Instalar as dependências do Backend
+cd backend
+npm install
+cd .. # Voltar para a pasta raiz do projeto
+
+# Instalar as dependências do Frontend
+cd frontend
+npm install
+cd .. # Voltar para a pasta raiz do projeto
+
 # Construir as imagens Docker e iniciar os containers
-docker compose up --build -d
+docker-compose up --build -d
 
 ```
 
