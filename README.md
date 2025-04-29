@@ -15,6 +15,7 @@
 ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
 ![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
+---
 
 ## 📝 Sobre o projeto ELLP
 O projeto ELLP da UTFPR-CP envolve estudantes de escolas públicas da região de Cornélio Procópio em oficinas super dinâmicas de:
@@ -27,11 +28,13 @@ O projeto ELLP da UTFPR-CP envolve estudantes de escolas públicas da região de
 
 🎯 O objetivo é despertar o interesse dos jovens no mundo digital, oferecendo experiências práticas, criativas e educativas!
 
+---
+
 ## 💻 Sobre o sistema
 
 Para auxiliar os voluntários do projeto, está sendo desenvolvido o sistema que busca facilitar o monitoramento e registro de presença dos participantes das oficinas.
 
-### 🧠 O que faz o app?
+### 🧩 Requisitos Funcionais
 
 | Funcionalidade 🛠 | Descrição 📄 |
 |------------------|-------------|
@@ -43,11 +46,30 @@ Para auxiliar os voluntários do projeto, está sendo desenvolvido o sistema que
 | 📊 Relatórios de presença por aluno | Geração de relatórios de presença individualizados para acompanhamento. |
 | 🏫 Cadastro, edição e exclusão de oficinas | Gerenciamento completo das oficinas realizadas no projeto. |
 
+---
+
+## 🧱 Estrutura do Repositório
+
+/.github/workflows     → ⚙️ Workflows do GitHub Actions (CI/CD e automações) 
+
+/backend               → 🧠 Código-fonte do backend (APIs, lógica de negócio)
+
+/frontend              → 🎨 Código-fonte do frontend (interface do usuário)
+
+README.md              → 📘 Documento principal do projeto 
+
+docker-compose.yml     → 🐳 Configuração dos containers com Docker
+
+---
+
+### 🧠 Arquitetura do Projeto
+
+![Arquitetura do Projeto](https://github.com/user-attachments/assets/c7efc9cc-0f4d-4b4c-8f6c-fbef50c0c2e8)
+
+---
 
 ### 🛠️ Como foi construído e por quê?
 O sistema foi desenvolvido com as seguintes tecnologias:
-
-
 
 - Docker:	Padroniza o ambiente de desenvolvimento e facilita o deploy.
 - ReactJS:	Construção do frontend com interfaces interativas e responsivas.
@@ -57,6 +79,7 @@ O sistema foi desenvolvido com as seguintes tecnologias:
 - Discord:	Comunicação rápida entre os membros do time.
 - Trello: Organização de tarefas e acompanhamento do progresso do projeto, para 
 
+---
 
 ## 📦 Instalação
 ### ⚙️ Pré-requisitos
@@ -74,15 +97,19 @@ cd OF2-ELLP
 docker compose up --build -d
 
 ```
+---
 
 ## 🌐 Acesso ao aplicativo
 - 🎨 Frontend: http://localhost:3000
 
 - 🛠 Backend: http://localhost:5173
 
-## 👥 Colaboradores
-- 🧠 Brena dos Santos Freitas
+---
 
-- 💡 Maria Fernanda de Abreu Aguiar
+## 👥 Equipe e Responsabilidades
 
-- 🔧 Micael Ribeiro Rocha
+| Nome                              | Função no Projeto                             |
+|-----------------------------------|-----------------------------------------------|
+| 🔧 Micael Ribeiro Rocha           | Líder de Projeto / Desenvolvedor Fullstack    |
+| 💡 Maria Fernanda de Abreu Aguiar| Desenvolvedora Frontend / UX Designer         |
+| 🧠 Brena dos Santos Freitas       | Desenvolvedora Backend / Documentação |
