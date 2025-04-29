@@ -7,30 +7,27 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   tests:
-    name : Backend Test
+    name: Backend Test
     runs-on: ubuntu-latest
 
     steps:
-    - name : Checkout Backend
+    - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        path: backend
-      
+
     - name: Use Node.js 
       uses: actions/setup-node@v4
       with:
         node-version: '18.x'
 
-    - name: Install dependecies   
+    - name: Install dependencies   
       run: npm install
       working-directory: ./backend
-      
-    - name : Build 
+
+    - name: Build 
       run: npm run build --if-present
       working-directory: ./backend
-    
-    - name : Run Tests
+
+    - name: Run Tests
       run: npm test
       working-directory: ./backend
