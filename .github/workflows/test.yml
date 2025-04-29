@@ -23,9 +23,9 @@ jobs:
       with:
         node-version: '18.x'
         cache: 'npm'
-        
+
     - name: Install dependecies   
-      run: npm ci
+      run: npm install
       working-directory: ./backend
       
     - name : Build 
