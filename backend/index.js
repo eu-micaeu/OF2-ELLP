@@ -1,16 +1,15 @@
 const express = require('express');
-const cors = require('cors');
+const studentRoutes = require('./routes/student');
+const dotenv = require('dotenv');
 
-const app = express();
-const PORT = 3000;
+dotenv.config();
 
-app.use(cors());
-app.use(express.json());
+const app = express(); // Inicializa o servidor
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Opa! Back-End aqui!!' });
-});
+app.use(express.json()); // Permite o uso de JSON nas requisições
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+app.use('/api/students', studentRoutes); // Rota para usuários
+
+const PORT = process.env.PORT || 3000; // Porta do servidor
+
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`)); // Inicia o servidor
