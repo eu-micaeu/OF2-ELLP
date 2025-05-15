@@ -2,9 +2,9 @@ name: CI - Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["**"]  # Executa em push para qualquer branch
   pull_request:
-    branches: [ "main" ]
+    branches: ["**"]  # Executa em PR de qualquer branch
 
 jobs:
   tests:
@@ -12,22 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Use Node.js 
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
+      - name: Use Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
 
-    - name: Install dependencies   
-      run: npm install
-      working-directory: ./backend
+      - name: Install dependencies   
+        run: npm install
+        working-directory: ./backend
 
-    - name: Build 
-      run: npm run build --if-present
-      working-directory: ./backend
+      - name: Build 
+        run: npm run build --if-present
+        working-directory: ./backend
 
-    - name: Run Tests
-      run: npm test
-      working-directory: ./backend
+      - name: Run Tests
+        run: npm test
+        working-directory: ./backend
