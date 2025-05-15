@@ -30,7 +30,7 @@ exports.createStudent = async (req, res) => {
 // Read
 exports.getAllStudents = async (req, res) => {
     try {
-        const students = await Student.find(); // Busca todos os estudantes
+        const students = await Student.findAll(); // Busca todos os estudantes
         res.status(200).json(students); // Retorno dos estudantes
     } catch (error) {
         console.error(error);
