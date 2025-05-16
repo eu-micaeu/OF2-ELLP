@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "jest": "^29.7.0",
-    "supertest": "^7.1.1"
-  }
-}
