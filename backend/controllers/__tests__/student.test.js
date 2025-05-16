@@ -1,11 +1,11 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const studentController = require('../controllers/student'); // ajuste o caminho conforme necessário
-const Student = require('../models/student');
+const studentController = require('../student'); // ajuste o caminho conforme necessário
+const Student = require('../../models/student');
 
 // Mock do modelo
-jest.mock('../models/student');
+jest.mock('../../models/student');
 
 const app = express();
 app.use(bodyParser.json());
