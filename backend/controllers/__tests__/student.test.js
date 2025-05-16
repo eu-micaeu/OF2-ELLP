@@ -16,13 +16,11 @@ app.get('/students', studentController.getAllStudents);
 app.put('/students/:id', studentController.updateStudent);
 app.delete('/students/:id', studentController.deleteStudent);
 
-describe('Student Controller', () => {
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  // Teste do Create
+describe('POST /students - Criar estudante', () => {
   it('deve criar um novo estudante', async () => {
     const studentData = {
       name: 'João',
@@ -42,8 +40,9 @@ describe('Student Controller', () => {
     expect(response.body.message).toBe('Estudante criado com sucesso!');
     expect(Student.create).toHaveBeenCalledWith(studentData);
   });
+});
 
-  // Teste do Read
+describe('GET /students - Listar estudantes', () => {
   it('deve retornar todos os estudantes', async () => {
     const students = [{ name: 'João' }, { name: 'Maria' }];
     Student.findAll.mockResolvedValue(students);
@@ -53,8 +52,9 @@ describe('Student Controller', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(students);
   });
+});
 
-  // Teste do Update
+describe('PUT /students/:id - Atualizar estudante', () => {
   it('deve atualizar um estudante', async () => {
     const updatedStudent = {
       name: 'João Atualizado',
@@ -73,8 +73,9 @@ describe('Student Controller', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body.student).toEqual(updatedStudent);
   });
+});
 
-  // Teste do Delete
+describe('DELETE /students/:id - Deletar estudante', () => {
   it('deve deletar um estudante', async () => {
     const deletedStudent = { name: 'João Deletado' };
     Student.findByIdAndDelete = jest.fn().mockResolvedValue(deletedStudent);
@@ -84,5 +85,4 @@ describe('Student Controller', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body.student).toEqual(deletedStudent);
   });
-
 });
