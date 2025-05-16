@@ -26,7 +26,7 @@ describe('POST /api/students - Criar estudante', () => {
       name: 'João',
       email: 'joao@email.com',
       phone: '123456789',
-      dateOfBirth: '2000-01-01',
+      date_of_birth: '2000-01-01',
       series: '5A'
     };
 
@@ -86,7 +86,7 @@ describe('PUT /api/students/:id - Atualizar estudante', () => {
       name: 'João Atualizado',
       email: 'joao@email.com',
       phone: '999999999',
-      dateOfBirth: '2000-01-01',
+      date_of_birth: '2000-01-01',
       series: '5A'
     };
 
@@ -105,7 +105,7 @@ describe('PUT /api/students/:id - Atualizar estudante', () => {
       name: 'João Atualizado',
       email: 'joao@email.com',
       phone: '999999999',
-      dateOfBirth: '2000-01-01',
+      date_of_birth: '2000-01-01',
       series: '5A'
     };
 
@@ -125,7 +125,7 @@ describe('PUT /api/students/:id - Atualizar estudante', () => {
       name: 'João Atualizado',
       email: 'joao@email.com',
       phone: '999999999',
-      dateOfBirth: '2000-01-01',
+      date_of_birth: '2000-01-01',
       series: '5A'
     };
 

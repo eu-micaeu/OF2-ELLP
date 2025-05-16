@@ -48,7 +48,7 @@ Student.init({
 
     // },
 
-    dateOfBirth: { // Coluna da data de nascimento
+    date_of_birth: { // Coluna da data de nascimento
 
         type: DataTypes.STRING,
 
