@@ -11,16 +11,16 @@ const app = express();
 app.use(bodyParser.json());
 
 // Rotas simuladas
-app.post('/students', studentController.createStudent);
-app.get('/students', studentController.getAllStudents);
-app.put('/students/:id', studentController.updateStudent);
-app.delete('/students/:id', studentController.deleteStudent);
+app.post('/api/students', studentController.createStudent);
+app.get('/api/students', studentController.getAllStudents);
+app.put('/api/students/:id', studentController.updateStudent);
+app.delete('/api/students/:id', studentController.deleteStudent);
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('POST /students - Criar estudante', () => {
+describe('POST /api/students - Criar estudante', () => {
   it('deve criar um novo estudante', async () => {
     const studentData = {
       name: 'João',
@@ -33,7 +33,7 @@ describe('POST /students - Criar estudante', () => {
     Student.create.mockResolvedValue(studentData);
 
     const response = await request(app)
-      .post('/students')
+      .post('/api/students')
       .send(studentData);
 
     expect(response.statusCode).toBe(201);
@@ -42,19 +42,19 @@ describe('POST /students - Criar estudante', () => {
   });
 });
 
-describe('GET /students - Listar estudantes', () => {
+describe('GET /api/students - Listar estudantes', () => {
   it('deve retornar todos os estudantes', async () => {
     const students = [{ name: 'João' }, { name: 'Maria' }];
     Student.findAll.mockResolvedValue(students);
 
-    const response = await request(app).get('/students');
+    const response = await request(app).get('/api/students');
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(students);
   });
 });
 
-describe('PUT /students/:id - Atualizar estudante', () => {
+describe('PUT /api/students/:id - Atualizar estudante', () => {
   it('deve atualizar um estudante', async () => {
     const updatedStudent = {
       name: 'João Atualizado',
@@ -67,7 +67,7 @@ describe('PUT /students/:id - Atualizar estudante', () => {
     Student.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedStudent);
 
     const response = await request(app)
-      .put('/students/1')
+      .put('/api/students/1')
       .send(updatedStudent);
 
     expect(response.statusCode).toBe(200);
@@ -75,12 +75,12 @@ describe('PUT /students/:id - Atualizar estudante', () => {
   });
 });
 
-describe('DELETE /students/:id - Deletar estudante', () => {
+describe('DELETE /api/students/:id - Deletar estudante', () => {
   it('deve deletar um estudante', async () => {
     const deletedStudent = { name: 'João Deletado' };
     Student.findByIdAndDelete = jest.fn().mockResolvedValue(deletedStudent);
 
-    const response = await request(app).delete('/students/1');
+    const response = await request(app).delete('/api/students/1');
 
     expect(response.statusCode).toBe(200);
     expect(response.body.student).toEqual(deletedStudent);
