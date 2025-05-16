@@ -22,7 +22,6 @@ exports.createStudent = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: 'Erro ao criar o estudante' }); // Retorno de erro
     }
 }
@@ -33,8 +32,7 @@ exports.getAllStudents = async (req, res) => {
         const students = await Student.findAll(); // Busca todos os estudantes
         res.status(200).json(students); // Retorno dos estudantes
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar os estudantes' }); // Retorno de erro
+        res.status(500).json({ error: 'Erro ao buscar estudantes' }); // Retorno de erro
     }
 }
 
@@ -62,7 +60,6 @@ exports.updateStudent = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: 'Erro ao atualizar o estudante' }); // Retorno de erro
     }
 }
@@ -84,7 +81,6 @@ exports.deleteStudent = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: 'Erro ao deletar o estudante' }); // Retorno de erro
     }
 }
