@@ -21,7 +21,6 @@ exports.createClass = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error); // Log do erro
         res.status(500).json({ error: 'Erro ao criar o classe' }); // Retorno de erro
     }
 }
@@ -71,11 +70,13 @@ exports.deleteClass = async (req, res) => {
 
         const classes = await Class.findByPk(id);
 
-        const deletedClass = await classes.destroy();
-
         if (!classes) {
             return res.status(404).json({ error: 'Classe não encontrada' }); // Retorno de erro se a classe não for encontrado
         }
+
+
+        const deletedClass = await classes.destroy();
+
 
         res.status(200).json({
             message: 'Classe deletada com sucesso!',
