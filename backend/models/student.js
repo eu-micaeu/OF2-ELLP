@@ -6,7 +6,7 @@ class Student extends Model { }
 // Modelo de usuário
 Student.init({
 
-    student_id: { // Coluna de ID
+    id: { // Coluna de ID
 
         type: DataTypes.INTEGER,
 

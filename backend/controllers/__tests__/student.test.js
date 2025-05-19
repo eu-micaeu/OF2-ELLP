@@ -81,98 +81,102 @@ describe('GET /api/students - Listar estudantes', () => {
 });
 
 describe('PUT /api/students/:id - Atualizar estudante', () => {
-  it('deve atualizar um estudante', async () => {
-    const updatedStudent = {
-      name: 'João Atualizado',
-      email: 'joao@email.com',
-      phone: '999999999',
-      date_of_birth: '2000-01-01',
-      series: '5A'
-    };
+  const updatedStudent = {
+    id: '1',
+    name: 'João Atualizado',
+    email: 'joao@email.com',
+    phone: '999999999',
+    dateOfBirth: '2000-01-01',
+    series: '5A'
+  };
 
-    Student.findByIdAndUpdate = jest.fn().mockResolvedValue(updatedStudent);
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('deve atualizar um estudante', async () => {
+    Student.update = jest.fn().mockResolvedValue([1]); 
+    Student.findByPk = jest.fn().mockResolvedValue(updatedStudent);
 
     const response = await request(app)
       .put('/api/students/1')
       .send(updatedStudent);
 
+    expect(Student.update).toHaveBeenCalledWith(
+      {
+        name: updatedStudent.name,
+        email: updatedStudent.email,
+        phone: updatedStudent.phone,
+        dateOfBirth: updatedStudent.dateOfBirth,
+        series: updatedStudent.series
+      },
+      { where: { id: '1' } }
+    );
+    expect(Student.findByPk).toHaveBeenCalledWith('1');
     expect(response.statusCode).toBe(200);
     expect(response.body.student).toEqual(updatedStudent);
+    expect(response.body.message).toBe('Estudante atualizado com sucesso!');
   });
 
   it('deve retornar um erro se o estudante não existir', async () => {
-    const updatedStudent = {
-      name: 'João Atualizado',
-      email: 'joao@email.com',
-      phone: '999999999',
-      date_of_birth: '2000-01-01',
-      series: '5A'
-    };
-
-    Student.findByIdAndUpdate = jest.fn().mockResolvedValue(null);
+    Student.update = jest.fn().mockResolvedValue([0]);
 
     const response = await request(app)
       .put('/api/students/1')
       .send(updatedStudent);
 
+    expect(Student.update).toHaveBeenCalledWith(
+      expect.any(Object),
+      { where: { id: '1' } }
+    );
     expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe('Estudante não encontrado');
   });
 
-
   it('deve retornar erro ao atualizar estudante', async () => {
-    const updatedStudent = {
-      name: 'João Atualizado',
-      email: 'joao@email.com',
-      phone: '999999999',
-      date_of_birth: '2000-01-01',
-      series: '5A'
-    };
-
-    Student.findByIdAndUpdate = jest.fn().mockRejectedValue(new Error('Erro ao atualizar estudante'));
+    Student.update = jest.fn().mockRejectedValue(new Error('Erro ao atualizar estudante'));
 
     const response = await request(app)
       .put('/api/students/1')
       .send(updatedStudent);
 
+    expect(Student.update).toHaveBeenCalledWith(
+      expect.any(Object),
+      { where: { id: '1' } }
+    );
     expect(response.statusCode).toBe(500);
     expect(response.body.error).toBe('Erro ao atualizar o estudante');
   });
-
 });
 
 describe('DELETE /api/students/:id - Deletar estudante', () => {
   it('deve deletar um estudante', async () => {
-    const deletedStudent = { name: 'João Deletado' };
-    Student.findByIdAndDelete = jest.fn().mockResolvedValue(deletedStudent);
+    Student.destroy = jest.fn().mockResolvedValue(1); // 1 registro deletado
 
     const response = await request(app).delete('/api/students/1');
 
+    expect(Student.destroy).toHaveBeenCalledWith({ where: { id: '1' } });
     expect(response.statusCode).toBe(200);
-    expect(response.body.student).toEqual(deletedStudent);
+    expect(response.body.message).toBe('Estudante deletado com sucesso!');
   });
 
   it('deve retornar erro se estudante não existir', async () => {
-    const deletedStudent = { name: 'João Deletado' };
-    Student.findByIdAndDelete = jest.fn().mockResolvedValue(null);
+    Student.destroy = jest.fn().mockResolvedValue(0); // 0 registros deletados
 
-    const response = await request(app).delete('/api/students/1')
-      .send(deletedStudent);
+    const response = await request(app).delete('/api/students/1');
 
+    expect(Student.destroy).toHaveBeenCalledWith({ where: { id: '1' } });
     expect(response.statusCode).toBe(404);
-    expect(response.body.error).toBe("Estudante não encontrado");
+    expect(response.body.error).toBe('Estudante não encontrado');
   });
 
   it('deve retornar erro ao deletar estudante', async () => {
-    const deletedStudent = { name: 'João Deletado' };
-    Student.findByIdAndDelete = jest.fn().mockRejectedValue(new Error('Erro ao deletar estudante'));
+    Student.destroy = jest.fn().mockRejectedValue(new Error('Erro ao deletar estudante'));
 
-    const response = await request(app).delete('/api/students/1')
-      .send(deletedStudent);
+    const response = await request(app).delete('/api/students/1');
 
-
+    expect(Student.destroy).toHaveBeenCalledWith({ where: { id: '1' } });
     expect(response.statusCode).toBe(500);
-    expect(response.body.error).toBe("Erro ao deletar o estudante");
+    expect(response.body.error).toBe('Erro ao deletar o estudante');
   });
-
 });
