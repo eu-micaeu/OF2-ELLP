@@ -2,15 +2,17 @@ const express = require('express');
 const studentRoutes = require('./routes/student');
 const workshopRoutes = require('./routes/workshop');
 const dotenv = require('dotenv');
+const cors = require('./middlewares/cors');
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors);
 app.use('/api/students', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
 
-const sequelize = require('./config/database'); // sua configuração do Sequelize
+const sequelize = require('./config/database');
 
 async function start() {
   try {
