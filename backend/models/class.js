@@ -4,7 +4,7 @@ const sequelize = require('../config/database'); // Importa a configuração do 
 class Class extends Model { }
 
 Class.init({
-    class_id: {
+    id: {
 
         type: DataTypes.INTEGER,
 
