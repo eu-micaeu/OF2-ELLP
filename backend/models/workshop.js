@@ -6,7 +6,7 @@ class Workshop extends Model { }
 // Modelo da oficina
 Workshop.init({
 
-    workshop_id: { // Coluna de ID
+    id: { // Coluna de ID
 
         type: DataTypes.INTEGER,
 
