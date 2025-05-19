@@ -2,5 +2,57 @@
 
     width: 100%;
     
+}
 
+.section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.section .title{
+    font-size: 15px;
+    display: flex;
+}
+
+.containerCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    flex-direction: row;
+}
+
+.containerCard .card{
+    width: 25vw;
+    height: 25vh;
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.containerCard .card:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.containerCard .card .icon{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+}
+
+.containerCard .card .titleCard{
+    font-size: 20px;
+    margin: 10px 0;
+    text-align: center;
 }

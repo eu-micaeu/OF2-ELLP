@@ -7,9 +7,10 @@ function Header() {
       <nav>
         <ul className={styles.navList}>
           <li className={styles.navItem}>Home</li>
-          <li className={styles.navItem}>Registrar faltas</li>
           <li className={styles.navItem}>Oficinas</li>
+          <li className={styles.navItem}>Turmas</li>
           <li className={styles.navItem}>Alunos</li>
+          <li className={styles.navItem}>Presenças</li>
         </ul>
       </nav>
     </header>
