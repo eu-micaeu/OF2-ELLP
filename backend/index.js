@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use('/api/students', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
+app.use('/api/class', classRoutes);
 
 const sequelize = require('./config/database'); // sua configuração do Sequelize
 
@@ -17,8 +18,6 @@ async function start() {
   try {
     await sequelize.authenticate();
     console.log('Conexão com banco estabelecida.');
-
-    app.use('/api/class', classRoutes); // Rota para classes
 
     // Sincroniza os models (cria tabelas)
     await sequelize.sync({ force: false }); // force: true recria as tabelas limpando dados

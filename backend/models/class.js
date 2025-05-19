@@ -43,8 +43,6 @@ Class.init({
 
     modelName: 'Class', // Nome do modelo
 
-    tableName: 'class', // Nome da tabela no banco de dados
-
     timestamps: false, // Desabilita os timestamps automáticos
 
 });
