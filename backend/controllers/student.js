@@ -38,49 +38,44 @@ exports.getAllStudents = async (req, res) => {
 
 // Update
 exports.updateStudent = async (req, res) => {
-    try {
-        const { id } = req.params; // ID do estudante a ser atualizado
-        const { name, email, phone, dateOfBirth, series } = req.body; // Dados atualizados
+  try {
+    const { id } = req.params;
+    const { name, email, phone, dateOfBirth, series } = req.body;
 
-        const updatedStudent = await Student.findByIdAndUpdate(id, { // Atualização do estudante
-            name,
-            email,
-            phone,
-            dateOfBirth,
-            series
-        }, { new: true });
+    const [updatedCount] = await Student.update(
+      { name, email, phone, dateOfBirth, series },
+      { where: { id } }
+    );
 
-        if (!updatedStudent) {
-            return res.status(404).json({ error: 'Estudante não encontrado' }); // Retorno de erro se o estudante não for encontrado
-        }
-
-        res.status(200).json({
-            message: 'Estudante atualizado com sucesso!',
-            student: updatedStudent
-        });
-
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar o estudante' }); // Retorno de erro
+    if (updatedCount === 0) {
+      return res.status(404).json({ error: 'Estudante não encontrado' });
     }
-}
+
+    const updatedStudent = await Student.findByPk(id);
+
+    res.status(200).json({
+      message: 'Estudante atualizado com sucesso!',
+      student: updatedStudent,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao atualizar o estudante' });
+  }
+};
 
 // Delete
 exports.deleteStudent = async (req, res) => {
-    try {
-        const { id } = req.params; // ID do estudante a ser deletado
+  try {
+    const { id } = req.params;
 
-        const deletedStudent = await Student.findByIdAndDelete(id); // Deleção do estudante
+    const deletedCount = await Student.destroy({ where: { id } });
 
-        if (!deletedStudent) {
-            return res.status(404).json({ error: 'Estudante não encontrado' }); // Retorno de erro se o estudante não for encontrado
-        }
-
-        res.status(200).json({
-            message: 'Estudante deletado com sucesso!',
-            student: deletedStudent
-        });
-
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar o estudante' }); // Retorno de erro
+    if (deletedCount === 0) {
+      return res.status(404).json({ error: 'Estudante não encontrado' });
     }
-}
+
+    res.status(200).json({ message: 'Estudante deletado com sucesso!' });
+
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao deletar o estudante' });
+  }
+};
