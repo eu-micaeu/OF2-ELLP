@@ -1,15 +1,30 @@
 const express = require('express');
 const studentRoutes = require('./routes/student');
+const workshopRoutes = require('./routes/workshop');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const app = express(); // Inicializa o servidor
+const app = express();
+app.use(express.json());
+app.use('/api/students', studentRoutes);
+app.use('/api/workshops', workshopRoutes);
 
-app.use(express.json()); // Permite o uso de JSON nas requisições
+const sequelize = require('./config/database'); // sua configuração do Sequelize
 
-app.use('/api/students', studentRoutes); // Rota para usuários
+async function start() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexão com banco estabelecida.');
 
-const PORT = process.env.PORT || 3000; // Porta do servidor
+    // Sincroniza os models (cria tabelas)
+    await sequelize.sync({ force: false }); // force: true recria as tabelas limpando dados
 
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`)); // Inicia o servidor
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+  } catch (error) {
+    console.error('Erro ao conectar com o banco:', error);
+  }
+}
+
+start();
