@@ -1,6 +1,7 @@
 const express = require('express');
 const studentRoutes = require('./routes/student');
 const workshopRoutes = require('./routes/workshop');
+const presenceRoutes = require('./routes/presence');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use('/api/students', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
+app.use('/api/presences', presenceRoutes);
 
 const sequelize = require('./config/database'); // sua configuração do Sequelize
 
