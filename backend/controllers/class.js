@@ -38,24 +38,24 @@ exports.getAllClass = async (req, res) => {
 // Update
 exports.updateClass = async (req, res) => {
     try {
-        const { id } = req.params; // ID da classe a ser atualizado
-        const { code, subjectname, students_quantity } = req.body; // Dados atualizados
+        const { id } = req.params;
+        const { code, subjectname, students_quantity } = req.body;
 
         const classes = await Class.findByPk(id);
 
-        const updatedClass = await classes.update({ // Atualização do classe
+        if (!classes) {
+            return res.status(404).json({ error: 'Classe não encontrada' }); // Retorno de erro se a classe não for encontrado
+        }
+
+        await classes.update({
             code,
             subjectname,
-            students_quantity,
+            students_quantity
         });
-
-        if (!updatedClass) {
-            return res.status(404).json({ error: 'Classe não encontrada' }); // Retorno de erro se o classe não for encontrado
-        }
 
         res.status(200).json({
             message: 'Classe atualizado com sucesso!',
-            class: updatedClass
+            classes
         });
 
     } catch (error) {

@@ -84,40 +84,45 @@ describe('GET /api/class - Buscar todas as classes', () => {
 
 describe('PUT /api/class/:id - Atualizar classe', () => {
     it('deve atualizar uma classe existente', async () => {
-        const classData = {
+
+        const classes = {
+            update: jest.fn().mockResolvedValue(true),
+            name: 'Classe Antiga'
+        };
+
+        Class.findByPk.mockResolvedValue(classes);
+
+        const updateData = {
             code: '123',
             subjectname: 'Matemática',
             students_quantity: 30
         };
 
-        Class.findByPk.mockResolvedValue({
-            update: jest.fn().mockResolvedValue(classData)
-        });
-
         const response = await request(app)
             .put('/api/class/1')
-            .send(classData);
+            .send(updateData);
 
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Classe atualizado com sucesso!');
-        expect(Class.findByPk).toHaveBeenCalledWith('1');
+        expect(classes.update).toHaveBeenCalledWith(updateData);
+
     });
 
     it('deve retornar um erro ao atualizar classe', async () => {
-        const classData = {
+        Class.findByPk.mockResolvedValue(null); // <-- ESSA É A MUDANÇA CRÍTICA
+
+        const updateData = {
             code: '123',
             subjectname: 'Matemática',
             students_quantity: 30
         };
 
-        Class.findByPk.mockResolvedValue(null);
-
         const response = await request(app)
-            .put('/api/class/1')
-            .send(classData);
+            .put('/api/class/999') // ID que não existe
+            .send(updateData);
 
-        expect(response.statusCode).toBe(500);
-        expect(response.body.error).toBe('Erro ao atualizar a classe');
+        expect(response.statusCode).toBe(404);
+        expect(response.body.error).toBe('Classe não encontrada');
     });
 
 
