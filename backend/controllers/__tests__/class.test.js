@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Rotas simuladas
-app.post('/api/class', classController.createClass); //
+app.post('/api/class', classController.createClass);
 app.get('/api/class', classController.getAllClass);
 app.put('/api/class/:id', classController.updateClass);
 app.delete('/api/class/:id', classController.deleteClass);
@@ -109,7 +109,7 @@ describe('PUT /api/class/:id - Atualizar classe', () => {
     });
 
     it('deve retornar um erro ao atualizar classe', async () => {
-        Class.findByPk.mockResolvedValue(null); // <-- ESSA É A MUDANÇA CRÍTICA
+        Class.findByPk.mockResolvedValue(null);
 
         const updateData = {
             code: '123',
@@ -118,7 +118,7 @@ describe('PUT /api/class/:id - Atualizar classe', () => {
         };
 
         const response = await request(app)
-            .put('/api/class/999') // ID que não existe
+            .put('/api/class/999')
             .send(updateData);
 
         expect(response.statusCode).toBe(404);

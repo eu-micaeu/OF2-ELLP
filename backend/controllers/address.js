@@ -28,7 +28,7 @@ exports.createAddress = async (req, res) => {
 }
 
 // Read
-exports.getAllAddresses = async (req, res) => {
+exports.getAllAddress = async (req, res) => {
     try {
         const addresses = await Address.findAll();
         res.status(200).json(addresses);
