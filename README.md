@@ -46,7 +46,41 @@ Para auxiliar os voluntários do projeto, está sendo desenvolvido o sistema que
 | 📊 Relatórios de presença por aluno | Geração de relatórios de presença individualizados para acompanhamento. |
 | 🏫 Cadastro, edição e exclusão de oficinas | Gerenciamento completo das oficinas realizadas no projeto. |
 
+
 ---
+
+### ⚙️ Pré-requisitos
+- 🐳 Docker
+- 🛠️ Node.js e npm 
+                                  
+### 📦 Instalação
+
+```s̀h
+# Clonar o repositório (caso ainda não tenha sido clonado)
+git clone https://github.com/eu-micaeu/OF2-ELLP.git
+
+# Navegar até o diretório do projeto
+cd OF2-ELLP
+
+# Construir as imagens Docker e iniciar os containers
+docker compose up --build -d
+
+```
+
+---
+
+## 🛠️ Tecnologias utilizadas
+O sistema foi desenvolvido com as seguintes tecnologias:
+
+- Docker:	Padroniza o ambiente de desenvolvimento e facilita o deploy.
+- ReactJS:	Construção do frontend com interfaces interativas e responsivas.
+- ExpressJS:	Backend leve e eficiente com Node.js.
+- PostgreSQL:	Banco de dados relacional robusto e seguro.
+- GitHub:	Controle de versão e colaboração em equipe. 
+- Discord:	Comunicação rápida entre os membros do time.
+- Trello: Organização de tarefas e acompanhamento do progresso do projeto, para 
+
+
 
 ## 🧱 Estrutura do Repositório
 
@@ -60,49 +94,20 @@ README.md              → 📘 Documento principal do projeto
 
 docker-compose.yml     → 🐳 Configuração dos containers com Docker
 
+
 ---
 
 ### 🧠 Arquitetura do Projeto
 
 ![Arquitetura do Projeto](https://github.com/user-attachments/assets/c7efc9cc-0f4d-4b4c-8f6c-fbef50c0c2e8)
 
----
 
-### 🛠️ Como foi construído e por quê?
-O sistema foi desenvolvido com as seguintes tecnologias:
-
-- Docker:	Padroniza o ambiente de desenvolvimento e facilita o deploy.
-- ReactJS:	Construção do frontend com interfaces interativas e responsivas.
-- ExpressJS:	Backend leve e eficiente com Node.js.
-- PostgreSQL:	Banco de dados relacional robusto e seguro.
-- GitHub:	Controle de versão e colaboração em equipe. 
-- Discord:	Comunicação rápida entre os membros do time.
-- Trello: Organização de tarefas e acompanhamento do progresso do projeto, para 
-
----
-
-## 📦 Instalação
-### ⚙️ Pré-requisitos
-- 🐳 Docker
-- 🛠️ Node.js e npm 
-
-```s̀h
-# Clonar o repositório (caso ainda não tenha sido clonado)
-git clone https://github.com/eu-micaeu/OF2-ELLP.git
-
-# Navegar até o diretório do projeto
-cd OF2-ELLP
-
-# Construir as imagens Docker e iniciar os containers
-docker compose up --build -d
-
-```
 ---
 
 ## 🌐 Acesso ao aplicativo
-- 🎨 Frontend: http://localhost:3000
+- 🎨 Frontend: http://localhost:5173
 
-- 🛠 Backend: http://localhost:5173
+- 🛠 Backend: http://localhost:3000
 
 ---
 

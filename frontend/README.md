@@ -1,12 +1,43 @@
-# React + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend da aplicação desenvolvido em **ReactJS**, responsável por fornecer uma interface interativa e acessível para usuários realizarem o gerenciamento de alunos, turmas, oficinas e frequências.
 
-Currently, two official plugins are available:
+## **Objetivo**:  
+Proporcionar uma experiência de usuário fluida e intuitiva, consumindo os dados da API backend e exibindo as informações de forma clara e funcional.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✅ Funcionalidades
+- Interface gráfica para gerenciamento de entidades:
+  - Visualização, cadastro, edição e exclusão de:
+    - Alunos  
+    - Turmas  
+    - Oficinas  
+    - Frequência
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Validação de formulários e feedback de ações  
+- Integração com a API via requisições HTTP  
+- Navegação entre páginas com React Router  
+
+---
+
+## **Arquivos-Chave**:
+
+```text
+OF02/
+└── frontend/
+    ├── public/               # Arquivos estáticos públicos (index.html, favicon etc.)
+    ├── src/
+    │   ├── assets/           # Imagens, fontes e outros recursos estáticos
+    │   ├── components/       # Componentes reutilizáveis da interface
+    │   ├── pages/            # Páginas principais da aplicação
+    │   ├── services/         # Configurações e chamadas de API
+    │   ├── routes/           # Definições de rotas da aplicação
+    │   ├── context/          # Context API para gerenciamento de estado global
+    │   ├── App.js            # Componente principal da aplicação
+    │   ├── index.js          # Ponto de entrada da aplicação React
+    ├── .env                  # Variáveis de ambiente da aplicação frontend
+    ├── package.json          # Dependências e scripts do projeto
+    ├── Dockerfile            # Dockerfile para construção da imagem do frontend
+
+```
