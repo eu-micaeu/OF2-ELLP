@@ -24,19 +24,13 @@ Proporcionar uma experiência de usuário fluida e intuitiva, consumindo os dado
 ## **Arquivos-Chave**:
 
 ```text
-OF02/
+OF2-ELLP/
 └── frontend/
     ├── public/               # Arquivos estáticos públicos (index.html, favicon etc.)
     ├── src/
     │   ├── assets/           # Imagens, fontes e outros recursos estáticos
-    │   ├── components/       # Componentes reutilizáveis da interface
-    │   ├── pages/            # Páginas principais da aplicação
-    │   ├── services/         # Configurações e chamadas de API
-    │   ├── routes/           # Definições de rotas da aplicação
-    │   ├── context/          # Context API para gerenciamento de estado global
-    │   ├── App.js            # Componente principal da aplicação
-    │   ├── index.js          # Ponto de entrada da aplicação React
-    ├── .env                  # Variáveis de ambiente da aplicação frontend
+    │   ├── App.jsx           # Componente principal da aplicação
+    │   ├── main.jsx          # Ponto de entrada da aplicação React
     ├── package.json          # Dependências e scripts do projeto
     ├── Dockerfile            # Dockerfile para construção da imagem do frontend
 

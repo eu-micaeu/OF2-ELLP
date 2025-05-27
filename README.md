@@ -1,5 +1,6 @@
 
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+<div align="center">
+
 
 <h1>🤖 OFICINA 2 - ELLP 🚀</h1>
 
@@ -48,12 +49,13 @@ Para auxiliar os voluntários do projeto, está sendo desenvolvido o sistema que
 
 
 ---
+## ⚙️ Configuração e Instalação
 
-### ⚙️ Pré-requisitos
+### Pré-requisitos
 - 🐳 Docker
 - 🛠️ Node.js e npm 
                                   
-### 📦 Instalação
+### Instalação
 
 ```s̀h
 # Clonar o repositório (caso ainda não tenha sido clonado)
@@ -72,36 +74,43 @@ docker compose up --build -d
 ## 🛠️ Tecnologias utilizadas
 O sistema foi desenvolvido com as seguintes tecnologias:
 
-- Docker:	Padroniza o ambiente de desenvolvimento e facilita o deploy.
-- ReactJS:	Construção do frontend com interfaces interativas e responsivas.
-- ExpressJS:	Backend leve e eficiente com Node.js.
-- PostgreSQL:	Banco de dados relacional robusto e seguro.
-- GitHub:	Controle de versão e colaboração em equipe. 
-- Discord:	Comunicação rápida entre os membros do time.
-- Trello: Organização de tarefas e acompanhamento do progresso do projeto, para 
-
+- Docker: Padroniza o ambiente de desenvolvimento e facilita o deploy.
+- ReactJS: Construção do frontend com interfaces interativas e responsivas.
+- ExpressJS: Backend leve e eficiente com Node.js.
+- PostgreSQL: Banco de dados relacional robusto e seguro.
+- GitHub: Controle de versão e colaboração em equipe.
+- Discord: Comunicação rápida entre os membros do time.
+- Trello: Organização de tarefas e acompanhamento do progresso do projeto
 
 
 ## 🧱 Estrutura do Repositório
 
-/.github/workflows     → ⚙️ Workflows do GitHub Actions (CI/CD e automações) 
+Veja o que você encontrará em cada parte do projeto:
 
-/backend               → 🧠 Código-fonte do backend (APIs, lógica de negócio)
-
-/frontend              → 🎨 Código-fonte do frontend (interface do usuário)
-
-README.md              → 📘 Documento principal do projeto 
-
-docker-compose.yml     → 🐳 Configuração dos containers com Docker
-
-
+* `/.github/workflows`   → **Automações e CI/CD**: Aqui estão os scripts do GitHub Actions.
+* `/backend`             → **Código do Servidor**: Tudo relacionado à lógica de negócio e APIs.
+* `/frontend`            → **Código da Interface**: Onde fica a parte visual e interativa da aplicação.
+* `README.md`            → **Guia do Projeto**: Este documento com todas as informações essenciais.
+* `docker-compose.yml`   → **Configuração Docker**: O arquivo para rodar todos os serviços em containers.
 ---
 
-### 🧠 Arquitetura do Projeto
+## 🧠 Arquitetura e Modelagem
+
+
+<div align="center">
+
+<h3>  Arquitetura do Projeto </h3>
 
 ![Arquitetura do Projeto](https://github.com/user-attachments/assets/c7efc9cc-0f4d-4b4c-8f6c-fbef50c0c2e8)
 
 
+
+<h3> Diagrama de Classes </h3>
+
+
+![Diagrama de Classes](image.png)
+
+</div>
 ---
 
 ## 🌐 Acesso ao aplicativo
