@@ -28,12 +28,13 @@ exports.createPresence = async (req, res) => {
 // Read
 exports.getAllPresences = async (req, res) => {
     try {
-        const presences = await Presence.findAll(); // Busca todas as presenças
-        res.status(200).json(presences); // Retorno das presenças
+        const presences = await Presence.findAll();
+        return res.status(200).json(presences);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar presenças' }); // Retorno de erro
+        console.error('Error fetching presences:', error.message); // Ensure errors are logged.
+        return res.status(500).json({ error: 'Erro ao obter as presenças' });
     }
-}
+};
 
 // Update
 exports.updatePresence = async (req, res) => {

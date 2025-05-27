@@ -69,12 +69,13 @@ describe('GET /api/presences - Obter todas as presenças', () => {
     });
 
     it('deve retornar um erro ao obter presenças', async () => {
-        Presence.findAll.mockRejectedValue(new Error('Erro ao obter presenças'));
+    Presence.findAll.mockRejectedValue(new Error('Erro ao obter presenças'));
 
-        const response = await request(app).get('/api/presences');
-
-        expect(response.statusCode).toBe(500);
-        expect(response.body.error).toBe('Erro ao obter as presenças');
+    const response = await request(app).get('/api/presences');
+    
+    expect(response.statusCode).toBe(500);
+    expect(response.body.error).toBe('Erro ao obter as presenças');
+    expect(Presence.findAll).toHaveBeenCalled(); // Ensure the method is called.
     });
 });
 

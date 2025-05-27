@@ -26,12 +26,13 @@ exports.createTutor = async (req, res) => {
 // Read
 exports.getAllTutors = async (req, res) => {
     try {
-        const tutors = await Tutor.findAll(); // Busca todos os tutores
-        res.status(200).json(tutors); // Retorno dos tutores
+        const tutors = await Tutor.findAll();
+        return res.status(200).json(tutors);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar tutores' }); // Retorno de erro
+        console.error('Error fetching tutors:', error.message); // Log error details.
+        return res.status(500).json({ error: 'Erro ao obter os tutores' });
     }
-}
+};
 
 // Update
 exports.updateTutor = async (req, res) => {

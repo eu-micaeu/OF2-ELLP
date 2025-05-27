@@ -67,12 +67,13 @@ describe('GET /api/tutors - Listar todos os tutores', () => {
     });
 
     it('deve retornar erro ao buscar tutores', async () => {
-        Tutor.findAll.mockRejectedValue(new Error('Erro ao buscar tutores'));
+    Tutor.findAll.mockRejectedValue(new Error('Erro ao buscar tutores'));
 
-        const response = await request(app).get('/api/tutors');
-
-        expect(response.statusCode).toBe(500);
-        expect(response.body.error).toBe('Erro ao obter os tutores');
+    const response = await request(app).get('/api/tutors');
+    
+    expect(response.statusCode).toBe(500);
+    expect(response.body.error).toBe('Erro ao obter os tutores');
+    expect(Tutor.findAll).toHaveBeenCalled(); // Verify the method call.
     });
 });
 
@@ -125,3 +126,7 @@ describe('DELETE /api/tutors/:id - Deletar tutor', () => {
         expect(response.body.error).toBe('Erro ao deletar o tutor');
     });
 });
+
+
+
+
