@@ -111,6 +111,7 @@ Veja o que você encontrará em cada parte do projeto:
 ![Diagrama de Classes](image.png)
 
 </div>
+
 ---
 
 ## 🌐 Acesso ao aplicativo
