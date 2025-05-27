@@ -1,20 +1,22 @@
 const express = require('express');
 const studentRoutes = require('./routes/student');
+const classRoutes = require('./routes/class');
 const workshopRoutes = require('./routes/workshop');
-const presenceRoutes = require('./routes/presence');
-const tutorRoutes = require('./routes/tutor');
+const addressRoutes = require('./routes/address');
 const dotenv = require('dotenv');
+const cors = require('./middlewares/cors');
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors);
 app.use('/api/students', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
-app.use('/api/presences', presenceRoutes);
-app.use('/api/tutors', tutorRoutes);
+app.use('/api/class', classRoutes);
+app.use('/api/address', addressRoutes);
 
-const sequelize = require('./config/database'); // sua configuração do Sequelize
+const sequelize = require('./config/database');
 
 async function start() {
   try {
