@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Importa a configuração do banco de dados
 
-class Class extends Model { }
+class Address extends Model { }
 
-Class.init({
+Address.init({
     id: {
 
         type: DataTypes.INTEGER,
@@ -13,7 +13,7 @@ Class.init({
         primaryKey: true,
     },
 
-    code: { // Coluna de código da classe
+    street: { // Coluna de rua
 
         type: DataTypes.STRING,
 
@@ -21,7 +21,7 @@ Class.init({
 
     },
 
-    subjectname: { // Coluna de nome da classe
+    number: { // Coluna de número
 
         type: DataTypes.STRING,
 
@@ -29,9 +29,25 @@ Class.init({
 
     },
 
-    students_quantity: { // Coluna de quantidade de estudantes
+    complement: { // Coluna de complemento
 
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+
+        allowNull: true,
+
+    },
+
+    neighborhood: { // Coluna de bairro
+
+        type: DataTypes.STRING,
+
+        allowNull: false,
+
+    },
+
+    postal_code: { // Coluna de CEP
+
+        type: DataTypes.STRING,
 
         allowNull: false,
 
@@ -41,10 +57,10 @@ Class.init({
 
     sequelize, // Passa a instância do Sequelize
 
-    modelName: 'Class', // Nome do modelo
+    modelName: 'Address', // Nome do modelo
 
     timestamps: false, // Desabilita os timestamps automáticos
 
 });
 
-module.exports = Class; 
+module.exports = Address; 
