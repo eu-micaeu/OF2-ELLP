@@ -3,15 +3,16 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Create
+// CREATE
 exports.createTutor = async (req, res) => {
     try {
-        const { tutor_name, tutor_curse } = req.body; // Desestruturação dos dados do corpo da requisição
+        const { tutor_name, tutor_curse } = req.body;
 
-        const newTutor = await Tutor.create({ // Criação de um novo tutor
-            tutor_name,
-            tutor_curse
-        });
+        if (!tutor_name || !tutor_curse) {
+            return res.status(400).json({ error: 'Nome e curso do tutor são obrigatórios.' });
+        }
+
+        const newTutor = await Tutor.create({ tutor_name, tutor_curse });
 
         res.status(201).json({
             message: 'Tutor criado com sucesso!',
@@ -19,61 +20,55 @@ exports.createTutor = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao criar o tutor' }); // Retorno de erro
+        res.status(500).json({ error: 'Erro ao criar o tutor' });
     }
-}
+};
 
-// Read
+// READ
 exports.getAllTutors = async (req, res) => {
     try {
         const tutors = await Tutor.findAll();
         return res.status(200).json(tutors);
     } catch (error) {
-        console.error('Error fetching tutors:', error.message); // Log error details.
+        console.error('Error fetching tutors:', error.message);
         return res.status(500).json({ error: 'Erro ao obter os tutores' });
     }
 };
 
-// Update
+// UPDATE
 exports.updateTutor = async (req, res) => {
     try {
-        const { id } = req.params; // ID do tutor a ser atualizado
-        const { tutor_name, tutor_curse } = req.body; // Dados atualizados
+        const { id } = req.params;
+        const { tutor_name, tutor_curse } = req.body;
 
-        const updatedTutor = await Tutor.findByIdAndUpdate(id, { // Atualização do tutor
-            tutor_name,
-            tutor_curse
-        }, { new: true });
+        const [rowsUpdated] = await Tutor.update(
+            { tutor_name, tutor_curse },
+            { where: { tutor_id: id } }
+        );
 
-        if (!updatedTutor) {
-            return res.status(404).json({ error: 'Tutor não encontrado' }); // Retorno de erro se o tutor não for encontrado
+        if (rowsUpdated === 0) {
+            return res.status(404).json({ error: 'Tutor não encontrado' });
         }
 
-        res.status(200).json({
-            message: 'Tutor atualizado com sucesso!',
-            tutor: updatedTutor
-        });
+        res.status(200).json({ message: 'Tutor atualizado com sucesso!' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar o tutor' }); // Retorno de erro
+        res.status(500).json({ error: 'Erro ao atualizar o tutor' });
     }
-}
+};
 
-// Delete
+// DELETE
 exports.deleteTutor = async (req, res) => {
     try {
-        const { id } = req.params; // ID do tutor a ser deletado
+        const { id } = req.params;
 
-        const deletedTutor = await Tutor.destroy({ where: { id } }); // Deleção do tutor
+        const deletedTutor = await Tutor.destroy({ where: { tutor_id: id } });
 
-        if (!deletedTutor) {
-            return res.status(404).json({ error: 'Tutor não encontrado' }); // Retorno de erro se o tutor não for encontrado
+        if (deletedTutor === 0) {
+            return res.status(404).json({ error: 'Tutor não encontrado' });
         }
 
-        res.status(200).json({
-            message: 'Tutor deletado com sucesso!'
-        });
+        res.status(200).json({ message: 'Tutor deletado com sucesso!' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar o tutor' }); // Retorno de erro
+        res.status(500).json({ error: 'Erro ao deletar o tutor' });
     }
-}
-
+};

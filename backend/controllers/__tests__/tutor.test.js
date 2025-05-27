@@ -1,7 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const tutorController = require('../tutor'); // Assumindo que os métodos createTutor, etc. estão exportados aqui
+const tutorController = require('../tutor');
 const Tutor = require('../../models/tutor');
 
 jest.mock('../../models/tutor');
@@ -38,12 +38,18 @@ describe('POST /api/tutors - Criar tutor', () => {
         expect(Tutor.create).toHaveBeenCalledWith(tutorData);
     });
 
-    it('deve retornar erro ao criar tutor', async () => {
+    it('deve retornar erro de validação ao criar tutor sem dados', async () => {
+        const response = await request(app).post('/api/tutors').send({});
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toBe('Nome e curso do tutor são obrigatórios.');
+    });
+
+    it('deve retornar erro ao criar tutor (erro interno)', async () => {
         Tutor.create.mockRejectedValue(new Error('Erro ao criar tutor'));
 
         const response = await request(app)
             .post('/api/tutors')
-            .send({});
+            .send({ tutor_name: 'Ana', tutor_curse: 'Matemática' });
 
         expect(response.statusCode).toBe(500);
         expect(response.body.error).toBe('Erro ao criar o tutor');
@@ -67,37 +73,48 @@ describe('GET /api/tutors - Listar todos os tutores', () => {
     });
 
     it('deve retornar erro ao buscar tutores', async () => {
-    Tutor.findAll.mockRejectedValue(new Error('Erro ao buscar tutores'));
+        Tutor.findAll.mockRejectedValue(new Error('Erro ao buscar tutores'));
 
-    const response = await request(app).get('/api/tutors');
-    
-    expect(response.statusCode).toBe(500);
-    expect(response.body.error).toBe('Erro ao obter os tutores');
-    expect(Tutor.findAll).toHaveBeenCalled(); // Verify the method call.
+        const response = await request(app).get('/api/tutors');
+
+        expect(response.statusCode).toBe(500);
+        expect(response.body.error).toBe('Erro ao obter os tutores');
     });
 });
 
 describe('PUT /api/tutors/:id - Atualizar tutor', () => {
     it('deve atualizar um tutor existente', async () => {
-        const updatedData = { tutor_name: 'Ana Paula', tutor_curse: 'Física' };
-
-        Tutor.update.mockResolvedValue([1]); // 1 linha atualizada
+        Tutor.update.mockResolvedValue([1]);
 
         const response = await request(app)
             .put('/api/tutors/1')
-            .send(updatedData);
+            .send({ tutor_name: 'Ana Paula', tutor_curse: 'Física' });
 
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Tutor atualizado com sucesso!');
-        expect(Tutor.update).toHaveBeenCalledWith(updatedData, { where: { tutor_id: '1' } });
+        expect(Tutor.update).toHaveBeenCalledWith(
+            { tutor_name: 'Ana Paula', tutor_curse: 'Física' },
+            { where: { tutor_id: '1' } }
+        );
+    });
+
+    it('deve retornar 404 se tutor não for encontrado', async () => {
+        Tutor.update.mockResolvedValue([0]);
+
+        const response = await request(app)
+            .put('/api/tutors/999')
+            .send({ tutor_name: 'X', tutor_curse: 'Y' });
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body.error).toBe('Tutor não encontrado');
     });
 
     it('deve retornar erro ao atualizar tutor', async () => {
-        Tutor.update.mockRejectedValue(new Error('Erro ao atualizar tutor'));
+        Tutor.update.mockRejectedValue(new Error('Erro ao atualizar'));
 
         const response = await request(app)
             .put('/api/tutors/1')
-            .send({});
+            .send({ tutor_name: 'Erro', tutor_curse: 'Bug' });
 
         expect(response.statusCode).toBe(500);
         expect(response.body.error).toBe('Erro ao atualizar o tutor');
@@ -106,27 +123,30 @@ describe('PUT /api/tutors/:id - Atualizar tutor', () => {
 
 describe('DELETE /api/tutors/:id - Deletar tutor', () => {
     it('deve deletar um tutor existente', async () => {
-        Tutor.destroy.mockResolvedValue(1); // 1 linha deletada
+        Tutor.destroy.mockResolvedValue(1);
 
-        const response = await request(app)
-            .delete('/api/tutors/1');
+        const response = await request(app).delete('/api/tutors/1');
 
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('Tutor deletado com sucesso!');
         expect(Tutor.destroy).toHaveBeenCalledWith({ where: { tutor_id: '1' } });
     });
 
-    it('deve retornar erro ao deletar tutor', async () => {
-        Tutor.destroy.mockRejectedValue(new Error('Erro ao deletar tutor'));
+    it('deve retornar 404 se tutor não for encontrado', async () => {
+        Tutor.destroy.mockResolvedValue(0);
 
-        const response = await request(app)
-            .delete('/api/tutors/1');
+        const response = await request(app).delete('/api/tutors/999');
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body.error).toBe('Tutor não encontrado');
+    });
+
+    it('deve retornar erro ao deletar tutor', async () => {
+        Tutor.destroy.mockRejectedValue(new Error('Erro ao deletar'));
+
+        const response = await request(app).delete('/api/tutors/1');
 
         expect(response.statusCode).toBe(500);
         expect(response.body.error).toBe('Erro ao deletar o tutor');
     });
 });
-
-
-
-
