@@ -8,3 +8,4 @@ router.put('/:id', presenceController.updatePresence);
 router.delete('/:id', presenceController.deletePresence);
 
 module.exports = router;
+
