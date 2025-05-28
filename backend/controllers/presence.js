@@ -25,7 +25,6 @@ exports.createPresence = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Erro ao criar presença:', error);
         res.status(500).json({ error: 'Erro ao criar a presença' });
     }
 };
@@ -36,7 +35,6 @@ exports.getAllPresences = async (req, res) => {
         const presences = await Presence.findAll();
         return res.status(200).json(presences);
     } catch (error) {
-        console.error('Erro ao obter presenças:', error.message);
         return res.status(500).json({ error: 'Erro ao obter as presenças' });
     }
 };
@@ -61,7 +59,6 @@ exports.updatePresence = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Erro ao atualizar presença:', error);
         res.status(500).json({ error: 'Erro ao atualizar a presença' });
     }
 };
@@ -82,7 +79,6 @@ exports.deletePresence = async (req, res) => {
         res.status(200).json({ message: 'Presença deletada com sucesso!' });
 
     } catch (error) {
-        console.error('Erro ao deletar presença:', error);
         res.status(500).json({ error: 'Erro ao deletar a presença' });
     }
 };
