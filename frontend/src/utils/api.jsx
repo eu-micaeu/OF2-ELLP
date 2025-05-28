@@ -53,7 +53,7 @@ export async function getAllClass() {
 }
 
 export async function updateClass(id, data) {
-  const response = await fetch(`${API_BASE}/classes/${id}`, {
+  const response = await fetch(`${API_BASE}/api/classes/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -63,7 +63,7 @@ export async function updateClass(id, data) {
 }
 
 export async function deleteClass(id) {
-  const response = await fetch(`${API_BASE}/classes/${id}`, {
+  const response = await fetch(`${API_BASE}/api/classes/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar classe');
@@ -72,7 +72,7 @@ export async function deleteClass(id) {
 
 // Funções para manipulação de dados de alunos
 export async function createStudent(data) {
-  const response = await fetch(`${API_BASE}/api/students`, {
+  const response = await fetch(`${API_BASE}/api/api/students`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -88,7 +88,7 @@ export async function getAllStudent() {
 }
 
 export async function updateStudent(id, data) {
-  const response = await fetch(`${API_BASE}/students/${id}`, {
+  const response = await fetch(`${API_BASE}/api/students/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -98,7 +98,7 @@ export async function updateStudent(id, data) {
 }
 
 export async function deleteStudent(id) {
-  const response = await fetch(`${API_BASE}/students/${id}`, {
+  const response = await fetch(`${API_BASE}/api/students/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar aluno');
@@ -117,13 +117,13 @@ export async function createFrequency(data) {
 }
 
 export async function getAllFrequency() {
-  const response = await fetch(`${API_BASE}/frequencies`);
+  const response = await fetch(`${API_BASE}/api/frequencies`);
   if (!response.ok) throw new Error('Erro ao buscar frequências');
   return response.json();
 }
 
 export async function updateFrequency(id, data) {
-  const response = await fetch(`${API_BASE}/frequencies/${id}`, {
+  const response = await fetch(`${API_BASE}/api/frequencies/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -133,7 +133,7 @@ export async function updateFrequency(id, data) {
 }
 
 export async function deleteFrequency(id) {
-  const response = await fetch(`${API_BASE}/frequencies/${id}`, {
+  const response = await fetch(`${API_BASE}/api/frequencies/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar frequência');
@@ -152,13 +152,13 @@ export async function createAddress(data) {
 }
 
 export async function getAllAddress() {
-  const response = await fetch(`${API_BASE}/addresses`);
+  const response = await fetch(`${API_BASE}/api/addresses`);
   if (!response.ok) throw new Error('Erro ao buscar endereços');
   return response.json();
 }
 
 export async function updateAddress(id, data) {
-  const response = await fetch(`${API_BASE}/addresses/${id}`, {
+  const response = await fetch(`${API_BASE}/api/addresses/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -168,44 +168,9 @@ export async function updateAddress(id, data) {
 }
 
 export async function deleteAddress(id) {
-  const response = await fetch(`${API_BASE}/addresses/${id}`, {
+  const response = await fetch(`${API_BASE}/api/addresses/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar endereço');
-  return response.json();
-}
-
-// Funções para manipulação de dados de usuários
-export async function createUser(data) {
-  const response = await fetch(`${API_BASE}/api/users`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) throw new Error('Erro ao criar usuário');
-  return response.json();
-}
-
-export async function getAllUser() {
-  const response = await fetch(`${API_BASE}/users`);
-  if (!response.ok) throw new Error('Erro ao buscar usuários');
-  return response.json();
-}
-
-export async function updateUser(id, data) {
-  const response = await fetch(`${API_BASE}/users/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) throw new Error('Erro ao atualizar usuário');
-  return response.json();
-}
-
-export async function deleteUser(id) {
-  const response = await fetch(`${API_BASE}/users/${id}`, {
-    method: 'DELETE',
-  });
-  if (!response.ok) throw new Error('Erro ao deletar usuário');
   return response.json();
 }
