@@ -18,7 +18,7 @@ export async function getAllWorkshop() {
 }
 
 export async function updateWorkshop(id, data) {
-  const response = await fetch(`${API_BASE}/workshops/${id}`, {
+  const response = await fetch(`${API_BASE}/api/workshops/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -28,7 +28,7 @@ export async function updateWorkshop(id, data) {
 }
 
 export async function deleteWorkshop(id) {
-  const response = await fetch(`${API_BASE}/workshops/${id}`, {
+  const response = await fetch(`${API_BASE}/api/workshops/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar oficina');
