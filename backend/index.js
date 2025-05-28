@@ -3,6 +3,10 @@ const studentRoutes = require('./routes/student');
 const classRoutes = require('./routes/class');
 const workshopRoutes = require('./routes/workshop');
 const addressRoutes = require('./routes/address');
+const presenceRoutes = require('./routes/presence');
+const userRoutes = require('./routes/user');
+const tutorRoutes = require('./routes/tutor');
+
 const dotenv = require('dotenv');
 const cors = require('./middlewares/cors');
 
@@ -10,13 +14,17 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+
 app.use(cors);
 app.use('/api/students', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
 app.use('/api/class', classRoutes);
+app.use('/api/presences', presenceRoutes);
 app.use('/api/address', addressRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/tutor', tutorRoutes);
 
-const sequelize = require('./config/database');
+const sequelize = require('./config/database'); // sua configuração do Sequelize
 
 async function start() {
   try {
@@ -32,5 +40,6 @@ async function start() {
     console.error('Erro ao conectar com o banco:', error);
   }
 }
+
 
 start();
