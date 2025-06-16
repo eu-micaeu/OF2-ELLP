@@ -35,3 +35,4 @@ OF2-ELLP/
     ├── Dockerfile            # Dockerfile para construção da imagem do frontend
 
 ```
+
