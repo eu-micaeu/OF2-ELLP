@@ -24,8 +24,8 @@ describe('POST /api/class - Criar classe', () => {
     it('deve criar uma nova classe', async () => {
         const classData = {
             code: '123',
-            subjectname: 'Matemática',
-            students_quantity: 30
+            number_of_classes: 10,
+            workshop_id: 1
         };
 
         Class.create.mockResolvedValue(classData);
