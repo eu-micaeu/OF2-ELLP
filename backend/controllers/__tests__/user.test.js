@@ -32,7 +32,7 @@ describe('User Controller - Register', () => {
 
         expect(response.status).toBe(201);
         expect(response.body.message).toBe('Usuário registrado com sucesso!');
-        expect(response.body.user).toEqual(mockUser);
+        expect(response.body.user).toEqual({ id: 1, email: 'test@example.com' });
         expect(User.create).toHaveBeenCalledWith({ email: 'test@example.com', password: 'hashedPassword' });
         expect(bcrypt.hash).toHaveBeenCalledWith('password123', 10);
     });

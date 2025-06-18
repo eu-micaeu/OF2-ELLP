@@ -2,7 +2,6 @@ const express = require('express');
 const studentRoutes = require('./routes/student');
 const classRoutes = require('./routes/class');
 const workshopRoutes = require('./routes/workshop');
-const presenceRoutes = require('./routes/presence');
 const userRoutes = require('./routes/user');
 const tutorRoutes = require('./routes/tutor');
 
@@ -18,7 +17,6 @@ app.use(cors);
 app.use('/api/student', studentRoutes);
 app.use('/api/workshops', workshopRoutes);
 app.use('/api/class', classRoutes);
-app.use('/api/presences', presenceRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/tutor', tutorRoutes);
 
