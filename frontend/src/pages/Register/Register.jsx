@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Register.module.css';
 import { register } from '../../utils/api';
+import { toast } from 'react-toastify';
 
 function Register() {
     const [email, setEmail] = useState('');
@@ -10,12 +11,12 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            alert('As senhas não coincidem!');
+            toast.error("Senhas não são iguais!")
             return;
         }
         try {
             const response = await register({ email, password });
-            alert('Registro realizado com sucesso!');
+            toast.success('Registro realizado com sucesso!');
             console.log('Registro:', response);
             // Redirecionar ou limpar os campos após o registro
             setEmail('');
@@ -23,7 +24,7 @@ function Register() {
             setConfirmPassword('');
             window.location.href = '/login'; // Redireciona para a página de login após
         } catch (error) {
-            alert('Erro ao registrar: ' + (error?.message || 'Tente novamente.'));
+            toast.error('Erro ao registrar: ' + error.message);
         }
     };
 

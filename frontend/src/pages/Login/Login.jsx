@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Login.module.css';
 import { login } from '../../utils/api';
+import { toast } from 'react-toastify';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,12 +11,12 @@ function Login() {
     e.preventDefault();
     try {
       const response = await login({ email, password });
-      alert('Login realizado com sucesso!');
+      toast.success('Login realizado com sucesso!');
       setEmail('');
       setPassword('');
-      window.location.href = '/index';
+      window.location.href = '/';
     } catch (error) {
-      alert('Erro ao logar: ' + (error?.message || 'Tente novamente.'));
+      toast.error('Erro ao realizar login: ' + error.message);
     }
   };
 

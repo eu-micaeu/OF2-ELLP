@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 const API_BASE = 'http://localhost:3000'; // Ajuste a URL da sua API
 
 // Funções para manipulação de dados de oficinas
