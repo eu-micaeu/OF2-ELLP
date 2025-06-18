@@ -14,7 +14,9 @@ function Login() {
       toast.success('Login realizado com sucesso!');
       setEmail('');
       setPassword('');
-      window.location.href = '/';
+      setTimeout(() => {
+        window.location.href = '/'; 
+      }, 2000);
     } catch (error) {
       toast.error('Erro ao realizar login: ' + error.message);
     }

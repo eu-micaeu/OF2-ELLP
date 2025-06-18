@@ -184,8 +184,15 @@ export async function login(data) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-  if (!response.ok) throw new Error('Erro ao fazer login');
-  return response.json();
+
+  const result = await response.json(); // ✅ Apenas uma leitura
+
+  if (response.ok) {
+    Cookies.set('authToken', result.token, { expires: 7 });
+    return result; // Retorna o resultado completo
+  }
+
+  throw new Error(result.error || 'Erro ao fazer login');
 }
 
 export async function register(data) {
