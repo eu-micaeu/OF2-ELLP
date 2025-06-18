@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import PopUpReadDelete from '../PopUpReadDelete/PopUpReadDelete';
+import PopUp from '../PopUp/PopUp';
 import styles from './Header.module.css';
 
 function Header() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const menuItems = ['Oficinas', 'Turmas', 'Alunos', 'Presenças', 'Endereços', 'Tutores'];
+  const menuItems = ['Oficinas'];
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -16,7 +16,7 @@ function Header() {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    setSelectedItem(null); // Fecha o Box de CRUD ao fechar o popup
+    setSelectedItem(null);
   };
 
   return (
@@ -33,9 +33,10 @@ function Header() {
       </nav>
 
       {showPopup && selectedItem && (
-        <PopUpReadDelete
-          itemType={selectedItem}
+        <PopUp
+          title={selectedItem}
           onClose={handleClosePopup}
+          content={<p>Conteúdo da {selectedItem}.</p>}
         />
       )}
     </header>

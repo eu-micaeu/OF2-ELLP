@@ -39,6 +39,16 @@ exports.getAllPresences = async (req, res) => {
     }
 };
 
+exports.getStudentPresence = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+        const presences = await Presence.findAll({ where: { student_id: studentId } });
+        res.status(200).json(presences);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar frequência do aluno' });
+    }
+};
+
 // UPDATE
 exports.updatePresence = async (req, res) => {
     try {
@@ -80,5 +90,22 @@ exports.deletePresence = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ error: 'Erro ao deletar a presença' });
+    }
+};
+
+// REPORT
+exports.getPresenceReport = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+        const presences = await Presence.findAll({ where: { student_id: studentId } });
+        // Formate os dados para o relatório
+        const report = presences.map(p => ({
+            oficina: p.workshop,
+            data: p.presence_date,
+            presente: p.present ? 'Sim' : 'Não',
+        }));
+        res.status(200).json(report);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao gerar relatório' });
     }
 };

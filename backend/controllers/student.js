@@ -6,14 +6,17 @@ dotenv.config(); // Configuração do dotenv
 // Create
 exports.createStudent = async (req, res) => {
     try {
-        const { name, email, phone, date_of_birth, series } = req.body; // Desestruturação dos dados do corpo da requisição
+        const { name, email, phone, date_of_birth, series, class_id} = req.body; // Desestruturação dos dados do corpo da requisição
+
+        console.log('Dados recebidos:', { name, email, phone, date_of_birth, series });
 
         const newStudent = await Student.create({ // Criação de um novo usuário
             name,
             email,
             phone,
             date_of_birth,
-            series
+            series,
+            class_id
         });
 
         res.status(201).json({

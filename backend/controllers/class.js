@@ -6,13 +6,15 @@ dotenv.config(); // Configuração do dotenv
 // Create
 exports.createClass = async (req, res) => {
     try {
-        const { code, subjectname, students_quantity } = req.body; // Desestruturação dos dados do corpo da requisição
+        const { code, subjectname, students_quantity, workshop_id } = req.body; // Desestruturação dos dados do corpo da requisição
+
+        const parsedStudentsQuantity = parseInt(students_quantity, 10); // Converte a quantidade de estudantes para inteiro
 
         const newClass = await Class.create({ // Criação de um nova classe
             code,
             subjectname,
-            students_quantity
-
+            students_quantity: parsedStudentsQuantity,
+            workshop_id
         });
 
         res.status(201).json({

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Importa a configuração do banco de dados
+const Workshop = require('./workshop');
 
 class Class extends Model { }
 
@@ -34,6 +35,19 @@ Class.init({
         type: DataTypes.INTEGER,
 
         allowNull: false,
+
+    },
+
+    workshop_id: { // Coluna de ID da oficina associada
+
+        type: DataTypes.INTEGER,
+
+        references: {
+            model: Workshop, // Referência ao modelo Workshop
+            key: 'id', // Chave estrangeira
+        },
+
+        allowNull: false, // Não permite nulo
 
     },
 
