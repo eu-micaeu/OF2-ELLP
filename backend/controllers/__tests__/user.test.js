@@ -4,10 +4,16 @@ const bodyParser = require('body-parser');
 const userController = require('../user'); // Assumindo que o arquivo do controller se chama userController.js
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-// Mock do modelo User e bcrypt
+// Mock do modelo User, bcrypt e jwt
 jest.mock('../../models/user');
 jest.mock('bcrypt');
+jest.mock('jsonwebtoken');
+
+// Define JWT_SECRET para os testes
+process.env.JWT_SECRET = 'testsecret';
+jwt.sign.mockReturnValue('mocked-jwt-token');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,21 +39,27 @@ describe('User Controller - Register', () => {
         expect(response.status).toBe(201);
         expect(response.body.message).toBe('Usuário registrado com sucesso!');
         expect(response.body.user).toEqual({ id: 1, email: 'test@example.com' });
+        expect(response.body.token).toBe('mocked-jwt-token');
         expect(User.create).toHaveBeenCalledWith({ email: 'test@example.com', password: 'hashedPassword' });
         expect(bcrypt.hash).toHaveBeenCalledWith('password123', 10);
+        expect(jwt.sign).toHaveBeenCalledWith(
+            { id: 1, email: 'test@example.com' },
+            'testsecret',
+            { expiresIn: '1d' }
+        );
     });
 
     it('🧪 Deve retornar erro 400 se email ou senha não forem fornecidos no registro', async () => {
         let response = await request(app)
             .post('/api/user/register')
-            .send({ email: 'test@example.com' }); // Senha faltando
+            .send({ email: 'test@example.com' });
 
         expect(response.status).toBe(400);
         expect(response.body.error).toBe('Email e senha são obrigatórios.');
 
         response = await request(app)
             .post('/api/user/register')
-            .send({ password: 'password123' }); // Email faltando
+            .send({ password: 'password123' });
 
         expect(response.status).toBe(400);
         expect(response.body.error).toBe('Email e senha são obrigatórios.');
@@ -78,21 +90,27 @@ describe('User Controller - Login', () => {
 
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Login realizado com sucesso!');
+        expect(response.body.token).toBe('mocked-jwt-token');
         expect(User.findOne).toHaveBeenCalledWith({ where: { email: 'test@example.com' } });
         expect(bcrypt.compare).toHaveBeenCalledWith('password123', 'hashedPassword');
+        expect(jwt.sign).toHaveBeenCalledWith(
+            { id: 1, email: 'test@example.com' },
+            'testsecret',
+            { expiresIn: '1d' }
+        );
     });
 
     it('🧪 Deve retornar erro 400 se email ou senha não forem fornecidos no login', async () => {
         let response = await request(app)
             .post('/api/user/login')
-            .send({ email: 'test@example.com' }); // Senha faltando
+            .send({ email: 'test@example.com' });
 
         expect(response.status).toBe(400);
         expect(response.body.error).toBe('Email e senha são obrigatórios.');
 
         response = await request(app)
             .post('/api/user/login')
-            .send({ password: 'password123' }); // Email faltando
+            .send({ password: 'password123' });
 
         expect(response.status).toBe(400);
         expect(response.body.error).toBe('Email e senha são obrigatórios.');
@@ -112,7 +130,7 @@ describe('User Controller - Login', () => {
     it('🧪 Deve retornar erro 401 se a senha estiver incorreta', async () => {
         const mockUser = { id: 1, email: 'test@example.com', password: 'hashedPassword' };
         User.findOne.mockResolvedValue(mockUser);
-        bcrypt.compare.mockResolvedValue(false); // Senha não confere
+        bcrypt.compare.mockResolvedValue(false);
 
         const response = await request(app)
             .post('/api/user/login')
