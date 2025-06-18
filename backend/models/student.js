@@ -41,19 +41,13 @@ Student.init({
 
     },
 
-    date_of_birth: { // Coluna da data de nascimento
+    classes_gone: { // Coluna de aulas assistidas
 
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
 
-        defaultValue: 'user',
+        allowNull: false,
 
-    },
-
-    series: { // Coluna de série
-
-        type: DataTypes.STRING,
-
-        // allowNull: false,
+        defaultValue: 0, // Valor padrão é 0
 
     },
 

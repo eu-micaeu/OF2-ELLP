@@ -22,15 +22,7 @@ Class.init({
 
     },
 
-    subjectname: { // Coluna de nome da classe
-
-        type: DataTypes.STRING,
-
-        allowNull: false,
-
-    },
-
-    students_quantity: { // Coluna de quantidade de estudantes
+    number_of_classes: { // Coluna do número de aulas
 
         type: DataTypes.INTEGER,
 
