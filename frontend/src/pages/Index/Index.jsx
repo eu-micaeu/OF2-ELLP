@@ -4,22 +4,24 @@ import Footer from "../../components/Footer/Footer";
 import { createWorkshop, getAllWorkshop, deleteWorkshop } from "../../utils/api"; 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, List, ListItem, ListItemText, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete"; 
+import { toast } from "react-toastify";
 
 import styles from "./Index.module.css";
 
 function Index() {
     const [showPopup, setShowPopup] = useState(null); 
     const [workshops, setWorkshops] = useState([]); 
-    const [newWorkshop, setNewWorkshop] = useState({ name: "", description: "" }); 
+    const [newWorkshop, setNewWorkshop] = useState({ name: "", start_date: "", end_date: "", academic_load: "" }); 
     const [deleteId, setDeleteId] = useState(""); 
 
     const handleCreateWorkshop = async () => {
         try {
             const response = await createWorkshop(newWorkshop);
-            alert(`Oficina criada com sucesso: ${response.name}`);
+            toast.success("Oficina criada com sucesso!");
             setShowPopup(null); 
         } catch (error) {
-            alert(error.message);
+            toast.error(`Erro ao criar oficina: ${error.message}`);
+            setShowPopup(null);
         }
     };
 
@@ -29,18 +31,20 @@ function Index() {
             setWorkshops(workshops); 
             setShowPopup("list"); 
         } catch (error) {
-            alert(error.message);
+            toast.error(`Erro ao listar oficinas: ${error.message}`);
+            setShowPopup(null);
         }
     };
 
     const handleDeleteWorkshop = async () => {
         try {
             await deleteWorkshop(deleteId);
-            alert("Oficina deletada com sucesso!");
+            toast.success("Oficina deletada com sucesso!");
             setShowPopup(null);
             handleListWorkshops();
         } catch (error) {
-            alert(error.message);
+            toast.error(`Erro ao deletar oficina: ${error.message}`);
+            setShowPopup(null);
         }
     };
 
@@ -78,13 +82,30 @@ function Index() {
                         onChange={(e) => setNewWorkshop({ ...newWorkshop, name: e.target.value })}
                     />
                     <TextField
-                        label="Descrição da oficina"
+                        label="Data de início"
+                        type="date"
                         fullWidth
                         margin="dense"
-                        multiline
-                        rows={4}
-                        value={newWorkshop.description}
-                        onChange={(e) => setNewWorkshop({ ...newWorkshop, description: e.target.value })}
+                        InputLabelProps={{ shrink: true }}
+                        value={newWorkshop.start_date}
+                        onChange={(e) => setNewWorkshop({ ...newWorkshop, start_date: e.target.value })}
+                    />
+                    <TextField
+                        label="Data de término"
+                        type="date"
+                        fullWidth
+                        margin="dense"
+                        InputLabelProps={{ shrink: true }}
+                        value={newWorkshop.end_date}
+                        onChange={(e) => setNewWorkshop({ ...newWorkshop, end_date: e.target.value })}
+                    />
+                    <TextField
+                        label="Carga horária"
+                        type="number"
+                        fullWidth
+                        margin="dense"
+                        value={newWorkshop.academic_load}
+                        onChange={(e) => setNewWorkshop({ ...newWorkshop, academic_load: e.target.value })}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -114,7 +135,7 @@ function Index() {
                                     </IconButton>
                                 }
                             >
-                                <ListItemText primary={workshop.name} secondary={workshop.description} />
+                                <ListItemText primary={workshop.name} secondary={workshop.academic_load + " Horas"} />
                             </ListItem>
                         ))}
                     </List>
