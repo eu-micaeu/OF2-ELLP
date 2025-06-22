@@ -380,6 +380,9 @@ function PopUp({ onClose }) {
     return (
         <>
             <Dialog open onClose={() => onClose(false)} fullWidth maxWidth="md">
+
+                <DialogTitle>Gerenciamento das Oficinas</DialogTitle>
+
                 <DialogContent dividers>
 
                     {/* Oficinas */}
@@ -389,7 +392,7 @@ function PopUp({ onClose }) {
                             {workshops.map((workshop) => (
                                 <ListItem
                                     key={workshop.id} button onClick={() => handleWorkshopClick(workshop)}
-                                    sx={selectedWorkshop?.id === workshop.id ? selectedBorderStyle : { borderLeft: '5px solid transparent' }}
+                                    sx={selectedWorkshop?.id === workshop.id ? selectedBorderStyle : { borderLeft: '5px solid transparent', cursor: 'pointer' }}
                                 >
                                     <ListItemText primary={workshop.name} />
                                 </ListItem>
@@ -412,7 +415,7 @@ function PopUp({ onClose }) {
                                                     key={cls.id}
                                                     button
                                                     onClick={() => handleClassClick(cls)}
-                                                    sx={selectedClass?.id === cls.id ? selectedBorderStyle : { borderLeft: '5px solid transparent' }}
+                                                    sx={selectedClass?.id === cls.id ? selectedBorderStyle : { borderLeft: '5px solid transparent', cursor: 'pointer' }}
                                                     secondaryAction={
                                                         <IconButton edge="end" aria-label="delete" onClick={(e) => {
                                                             e.stopPropagation(); // Impede que o clique no ícone selecione a turma

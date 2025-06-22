@@ -9,7 +9,7 @@ function Header() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const menuItems = ['Oficinas'];
+  const menuItems = ['Gerenciamento das Oficinas do ELLP'];
 
   const navigate = useNavigate();
 
