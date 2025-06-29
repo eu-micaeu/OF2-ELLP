@@ -6,14 +6,14 @@ dotenv.config(); // Configuração do dotenv
 // Create
 exports.createStudent = async (req, res) => {
     try {
-        const { name, email, phone, date_of_birth, series } = req.body; // Desestruturação dos dados do corpo da requisição
+        const { name, email, phone, classes_gone ,class_id} = req.body; // Desestruturação dos dados do corpo da requisição
 
         const newStudent = await Student.create({ // Criação de um novo usuário
             name,
             email,
             phone,
-            date_of_birth,
-            series
+            classes_gone,
+            class_id
         });
 
         res.status(201).json({
@@ -29,21 +29,24 @@ exports.createStudent = async (req, res) => {
 // Read
 exports.getAllStudents = async (req, res) => {
     try {
-        const students = await Student.findAll(); // Busca todos os estudantes
-        res.status(200).json(students); // Retorno dos estudantes
+        const students = await Student.findAll({
+            order: [['name', 'ASC']] // Ordena alfabeticamente pelo campo 'name'
+        });
+        res.status(200).json(students);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar estudantes' }); // Retorno de erro
+        res.status(500).json({ error: 'Erro ao buscar estudantes' });
     }
-}
+};
+
 
 // Update
 exports.updateStudent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone, dateOfBirth, series } = req.body;
+    const { name, email, phone, classes_gone } = req.body;
 
     const [updatedCount] = await Student.update(
-      { name, email, phone, dateOfBirth, series },
+      { name, email, phone, classes_gone },
       { where: { id } }
     );
 

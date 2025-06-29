@@ -1,12 +1,23 @@
 import { useState } from 'react';
-import PopUpReadDelete from '../PopUpReadDelete/PopUpReadDelete';
+import PopUp from '../PopUp/PopUp';
 import styles from './Header.module.css';
+import { removeAuthTokenFromCookies } from '../../utils/cookies';
+import { useNavigate } from 'react-router-dom';
+
 
 function Header() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const menuItems = ['Oficinas', 'Turmas', 'Alunos', 'Presenças', 'Endereços', 'Tutores'];
+  const menuItems = ['Gerenciamento das Oficinas do ELLP'];
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeAuthTokenFromCookies(); // limpa o token
+    navigate('/login'); // redireciona para /login
+  };
+
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -16,8 +27,10 @@ function Header() {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    setSelectedItem(null); // Fecha o Box de CRUD ao fechar o popup
+    setSelectedItem(null);
   };
+
+
 
   return (
     <header className={styles.header}>
@@ -29,13 +42,18 @@ function Header() {
               {item}
             </li>
           ))}
+          <li className={styles.navItem} style={{ color: 'red' }} onClick={handleLogout}>
+            Sair
+          </li>
+
         </ul>
       </nav>
 
       {showPopup && selectedItem && (
-        <PopUpReadDelete
-          itemType={selectedItem}
+        <PopUp
+          title={selectedItem}
           onClose={handleClosePopup}
+          content={<p>Conteúdo da {selectedItem}.</p>}
         />
       )}
     </header>

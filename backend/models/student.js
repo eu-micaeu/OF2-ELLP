@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Class = require('./class'); // Importa o modelo de classe
 
 class Student extends Model { }
 
@@ -40,29 +41,31 @@ Student.init({
 
     },
 
-    // address: { // Coluna de endereço
+    classes_gone: { // Coluna de aulas assistidas
 
-    //     type: DataTypes.STRING,
-
-    //     allowNull: false,
-
-    // },
-
-    date_of_birth: { // Coluna da data de nascimento
-
-        type: DataTypes.STRING,
-
-        defaultValue: 'user',
-
-    },
-
-    series: { // Coluna de série
-
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
 
         allowNull: false,
 
+        defaultValue: 0, // Valor padrão é 0
+
     },
+
+    class_id: { // Coluna de ID da classe
+
+        type: DataTypes.INTEGER,
+
+        references: { // Referência à tabela de classes
+
+            model: Class,
+
+            key: 'id',
+
+        },
+
+        allowNull: false,
+
+    }
 
 }, {
 

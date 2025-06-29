@@ -26,8 +26,8 @@ describe('POST /api/students - Criar estudante', () => {
       name: 'João',
       email: 'joao@email.com',
       phone: '123456789',
-      date_of_birth: '2000-01-01',
-      series: '5A'
+      classes_gone: 5,
+      class_id: 1,
     };
 
     Student.create.mockResolvedValue(studentData);
@@ -95,7 +95,7 @@ describe('PUT /api/students/:id - Atualizar estudante', () => {
   });
 
   it('deve atualizar um estudante', async () => {
-    Student.update = jest.fn().mockResolvedValue([1]); 
+    Student.update = jest.fn().mockResolvedValue([1]);
     Student.findByPk = jest.fn().mockResolvedValue(updatedStudent);
 
     const response = await request(app)
@@ -107,8 +107,9 @@ describe('PUT /api/students/:id - Atualizar estudante', () => {
         name: updatedStudent.name,
         email: updatedStudent.email,
         phone: updatedStudent.phone,
-        dateOfBirth: updatedStudent.dateOfBirth,
-        series: updatedStudent.series
+        classes_gone: updatedStudent.classes_gone,
+        class_id: updatedStudent.class_id,
+
       },
       { where: { id: '1' } }
     );

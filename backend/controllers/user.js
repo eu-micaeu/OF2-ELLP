@@ -1,8 +1,18 @@
 const User = require('../models/user');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 dotenv.config();
+
+// Função para gerar token
+const generateToken = (user) => {
+    return jwt.sign(
+        { id: user.id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' } // 1 dia de expiração
+    );
+};
 
 // REGISTER
 exports.registerUser = async (req, res) => {
@@ -16,9 +26,12 @@ exports.registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({ email, password: hashedPassword });
 
+        const token = generateToken(newUser);
+
         res.status(201).json({
             message: 'Usuário registrado com sucesso!',
-            user: newUser
+            user: { id: newUser.id, email: newUser.email },
+            token
         });
 
     } catch (error) {
@@ -41,8 +54,11 @@ exports.loginUser = async (req, res) => {
             return res.status(401).json({ error: 'Email ou senha inválidos.' });
         }
 
+        const token = generateToken(user);
+
         res.status(200).json({
-            message: 'Login realizado com sucesso!'
+            message: 'Login realizado com sucesso!',
+            token: token,
         });
 
     } catch (error) {

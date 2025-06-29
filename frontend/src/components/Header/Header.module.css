@@ -8,6 +8,7 @@ header {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     gap: 20px;
     background-color: white;
+    justify-content: space-between;
 
 }
 
@@ -51,6 +52,12 @@ header nav .navList .navItem {
 .navItem {
     position: relative;
     cursor: pointer;
+    padding: 0 20px;
+    border-radius: 10px;
+}
+
+.navItem:hover {
+    background-color: #f0f0f0;
 }
 
 .crudBox {
