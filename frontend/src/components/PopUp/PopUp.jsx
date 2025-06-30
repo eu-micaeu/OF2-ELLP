@@ -536,4 +536,5 @@ function PopUp({ onClose }) {
     );
 }
 
+
 export default PopUp;
