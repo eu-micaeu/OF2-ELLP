@@ -37,13 +37,6 @@ export async function deleteWorkshop(id) {
   return response.json();
 }
 
-export async function getWorkshopById(id) {
-  const response = await fetch(`${API_BASE}/api/workshops/${id}`,{
-    method : 'GET',
-  });
-  if (!response.ok) throw new Error('Erro ao buscar oficina');
-  return response.json();
-}
 
 
 // Funções para manipulação de dados de classes
@@ -62,6 +55,14 @@ export async function getClassById(id) {
     method : 'GET',
   });
   if (!response.ok) throw new Error('Erro ao buscar classe');
+  return response.json();
+}
+
+export async function getWorkshopById(id) {
+  const response = await fetch(`${API_BASE}/api/workshops/${id}`,{
+    method : 'GET',
+  });
+  if (!response.ok) throw new Error('Erro ao buscar oficina');
   return response.json();
 }
 

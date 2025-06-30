@@ -17,9 +17,7 @@ function Index() {
     const [newWorkshop, setNewWorkshop] = useState({ name: "", start_date: "", end_date: "", academic_load: "" }); 
     const [deleteId, setDeleteId] = useState(""); 
     const [classNames, setClassNames] = useState({});
-    const [selectedClass, setSelectedClass] = useState(null);
-    const [selectedWorkshop, setSelectedWorkshop] = useState(null);
-
+    const [setSelectedWorkshop, setWorkshopNames] = useState({});
 
     const handleCreateWorkshop = async () => {
         try {
@@ -56,12 +54,31 @@ function Index() {
 
      const handleGetById = async (id) => {
         try {
-        const classe = await getClassById(id);
-        setClassNames(prev => ({ ...prev, [id]: classe.code }));
+            const classe = await getClassById(id);
+            setClassNames(prev => ({ ...prev, [id]: classe.code }));
+
         } catch (error) {
         console.error('Erro ao buscar classe por ID:', error);
         }
     };
+
+    const handleGetWorkshopById = async (id) => {
+        try {
+            const classe = await getClassById(id);
+            setClassNames(prev => ({ ...prev, [id]: classe.code }));
+
+            const workshop = await getWorkshopById(classe.workshop_id);
+
+            setWorkshopNames(prev => ({ ...prev, [id]: workshop.name }));
+            setSelectedWorkshop(workshop);
+
+            return workshop; // <-- esse retorno é importante para outras partes do código
+        } catch (error) {
+            console.error('Erro ao buscar workshop por ID:', error);
+            return null;
+        }
+    };
+
 
     useEffect(() => {
     students.forEach((student) => {
@@ -71,21 +88,14 @@ function Index() {
     });
     }, [students]);
 
-    const getAttendancePercentage = (student) => {
-        const classId = student.class_id || student.student_class_id;
-        const classInfo = classNames[classId];
 
-        if (!classInfo || classInfo.number_of_classes === 0) return '0%';
-
-        const percentage = (student.classes_gone / classInfo.number_of_classes) * 100;
-        return `${percentage.toFixed(1)}%`;
-    };
 
     const generateStudentReportPdf = async (student) => {
         const classId = student.class_id;
 
         try {
             const classe = await getClassById(classId);
+            const workshop = await getWorkshopById(classe.workshop_id);
 
             const today = new Date();
             const formattedDate = new Intl.DateTimeFormat('pt-BR').format(today);
@@ -96,6 +106,9 @@ function Index() {
                     <h1>Relatório de Aluno</h1>
                     <p><strong>Nome:</strong> ${student.name}</p>
                     <p><strong>Email:</strong> ${student.email}</p>
+                    <h2 style="color: #555;">Dados da Oficina e Turma</h2>
+                    <p><strong>Oficina:</strong> ${workshop.name}</p>
+
                     <p><strong>Turma:</strong> ${classe.code}</p>
                     <p><strong>Total de Aulas:</strong> ${classe.number_of_classes}</p>
                     <p><strong>Aulas Frequentadas:</strong> ${student.classes_gone}</p>
