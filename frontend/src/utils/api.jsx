@@ -37,6 +37,8 @@ export async function deleteWorkshop(id) {
   return response.json();
 }
 
+
+
 // Funções para manipulação de dados de classes
 export async function createClass(data) {
   const response = await fetch(`${API_BASE}/api/class`, {
@@ -48,11 +50,23 @@ export async function createClass(data) {
   return response.json();
 }
 
-export async function getAllClass() {
-  const response = await fetch(`${API_BASE}/api/class`);
-  if (!response.ok) throw new Error('Erro ao buscar classes');
+export async function getClassById(id) {
+  const response = await fetch(`${API_BASE}/api/class/${id}`,{
+    method : 'GET',
+  });
+  if (!response.ok) throw new Error('Erro ao buscar classe');
   return response.json();
 }
+
+export async function getWorkshopById(id) {
+  const response = await fetch(`${API_BASE}/api/workshops/${id}`,{
+    method : 'GET',
+  });
+  if (!response.ok) throw new Error('Erro ao buscar oficina');
+  return response.json();
+}
+
+
 
 export async function updateClass(id, data) {
   const response = await fetch(`${API_BASE}/api/class/${id}`, {
@@ -174,6 +188,12 @@ export async function deleteTutor(id) {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao deletar tutor');
+  return response.json();
+}
+
+export async function getAllClass() {
+  const response = await fetch(`${API_BASE}/api/class`);
+  if (!response.ok) throw new Error('Erro ao buscar classes');
   return response.json();
 }
 

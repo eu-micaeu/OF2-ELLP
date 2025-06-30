@@ -86,3 +86,20 @@ exports.deleteWorkshop = async (req, res) => {
         res.status(500).json({ error: 'Erro ao deletar a oficina' });
     }
 }
+
+
+exports.getWorkshopById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const workshop = await Workshop.findByPk(id);
+
+    if (!workshop) {
+      return res.status(404).json({ error: 'workshop não encontrada' });
+    }
+
+    res.status(200).json(workshop);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar a workshop' });
+  }
+};
