@@ -257,7 +257,7 @@ function Index() {
             </Dialog>
 
             {/* Dialog para listar estudantes */}
-            <Dialog open={showPopup === "listStudents"} onClose={() => setShowPopup(null)}>
+            <Dialog open={showPopup === "listStudents"} onClose={() => setShowPopup(null)} fullWidth maxWidth="md">
                 <DialogTitle>Lista Alunos</DialogTitle>
                 <DialogContent>
                     <List>
