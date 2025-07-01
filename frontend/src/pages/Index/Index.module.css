@@ -56,3 +56,13 @@
     margin: 10px 0;
     text-align: center;
 }
+
+.listaClass{
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.itemListaClass{
+    border-bottom: 2px solid #eee;
+    padding: 10px 0;
+}
