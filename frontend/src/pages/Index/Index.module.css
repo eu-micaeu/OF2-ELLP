@@ -14,7 +14,7 @@
 }
 
 .section .title{
-    font-size: 15px;
+    font-size: 20px;
     display: flex;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .containerCard .card{
-    width: 25vw;
+    width: 15vw;
     height: 25vh;
     margin: 10px;
     padding: 20px;
@@ -55,4 +55,14 @@
     font-size: 20px;
     margin: 10px 0;
     text-align: center;
+}
+
+.listaClass{
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.itemListaClass{
+    border-bottom: 2px solid #eee;
+    padding: 10px 0;
 }

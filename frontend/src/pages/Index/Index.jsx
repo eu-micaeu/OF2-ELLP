@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { createWorkshop, getAllWorkshop, getAllStudent, deleteWorkshop, getClassById,getWorkshopById } from "../../utils/api"; 
+import { createWorkshop, getAllWorkshop, getAllStudent, deleteWorkshop, getClassById,getWorkshopById, getAllClasses } from "../../utils/api"; 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, List, ListItem, ListItemText, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete"; 
 import { toast } from "react-toastify";
@@ -16,7 +16,7 @@ function Index() {
     const [students, setStudents] = useState([]);
     const [newWorkshop, setNewWorkshop] = useState({ name: "", start_date: "", end_date: "", academic_load: "" }); 
     const [deleteId, setDeleteId] = useState(""); 
-    const [classNames, setClassNames] = useState({});
+    const [classNames, setClassNames] = useState([]);
     const [setSelectedWorkshop, setWorkshopNames] = useState({});
 
     const handleCreateWorkshop = async () => {
@@ -138,8 +138,6 @@ function Index() {
     };
 
 
-    
-
     const handleDeleteWorkshop = async () => {
         try {
             await deleteWorkshop(deleteId);
@@ -151,6 +149,19 @@ function Index() {
             setShowPopup(null);
         }
     };
+
+
+
+    const handleListClasses = async () => {
+        try {
+            const classes = await getAllClasses();
+            setClassNames(classes.map((cls) => cls.code));
+            setShowPopup("listClasses");
+        } catch (error) {
+            toast.error(`Erro ao listar turmas: ${error.message}`);
+        }
+    };
+
 
     return (
         <>
@@ -175,6 +186,11 @@ function Index() {
                     <div className={styles.card} onClick={() => { handleListStudents(); setShowPopup("listStudents"); }}>
                         <img src="/card3.png" alt="" className={styles.icon}/>
                         <h1 className={styles.titleCard}>Listar Alunos</h1>
+                    </div>
+
+                    <div className={styles.card} onClick={() => { handleListClasses(); setShowPopup("listClasses"); }}>
+                        <img src="/card4.png" alt="" className={styles.icon}/>
+                        <h1 className={styles.titleCard}>Listar Turmas</h1>
                     </div>
 
                 </div>
@@ -307,6 +323,22 @@ function Index() {
                             </ListItem>
                         ))}
                     </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setShowPopup(null)} color="secondary">Fechar</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={showPopup === "listClasses"} onClose={() => setShowPopup(null)} fullWidth maxWidth="sm">
+                <DialogTitle>Listar Turmas</DialogTitle>
+                <DialogContent className={styles.listaClass}>
+                    {classNames && <List>
+                        {classNames?.map((className) => (
+                            <ListItem key={className} className={styles.itemListaClass}>
+                                <ListItemText primary={className} />
+                            </ListItem>
+                        ))}
+                    </List>}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setShowPopup(null)} color="secondary">Fechar</Button>

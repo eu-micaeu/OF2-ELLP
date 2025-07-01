@@ -66,7 +66,11 @@ export async function getWorkshopById(id) {
   return response.json();
 }
 
-
+export async function getAllClasses() {
+  const response = await fetch(`${API_BASE}/api/class`);
+  if (!response.ok) throw new Error('Erro ao buscar turmas');
+  return response.json();
+}
 
 export async function updateClass(id, data) {
   const response = await fetch(`${API_BASE}/api/class/${id}`, {
