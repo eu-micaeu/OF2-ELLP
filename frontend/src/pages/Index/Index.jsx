@@ -177,6 +177,11 @@ function Index() {
                         <h1 className={styles.titleCard}>Listar Alunos</h1>
                     </div>
 
+                    <div className={styles.card} onClick={() => { handleListWorkshops(); setShowPopup("listWorkshops"); }}>
+                        <img src="/card4.png" alt="" className={styles.icon}/>
+                        <h1 className={styles.titleCard}>Listar Turmas</h1>
+                    </div>
+
                 </div>
             </div>
 

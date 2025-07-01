@@ -14,7 +14,7 @@
 }
 
 .section .title{
-    font-size: 15px;
+    font-size: 20px;
     display: flex;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .containerCard .card{
-    width: 25vw;
+    width: 15vw;
     height: 25vh;
     margin: 10px;
     padding: 20px;
